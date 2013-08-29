@@ -7,7 +7,7 @@ new_linked_list(void)
 {
     linked_list* list;
 
-    list = (linked_list*) malloc(sizeof (*list));
+    list = malloc(sizeof (*list));
     list->head = NULL;
 
     return list;
@@ -25,6 +25,7 @@ delete_linked_list(linked_list* list)
         delete_node(current_node);
         current_node = next_node;
     }
+    
     free(list);
 }
 
@@ -34,24 +35,17 @@ linked_list_insert(linked_list* list,
 {
     list_node* node;
 
-    // return error if list is null
+    /* return error if list is null */
     if (list == NULL) 
-    {
         return -1;
-    }
 
     if ((node = create_node(value)) == NULL)
-    {
         return -1;
-    }
 
-    if (list->head == NULL) {
+    if (list->head == NULL) 
         list->head = node;
-    } 
     else
-    {
         linked_list_get_last_element(list)->next = node;
-    }
     
     return 1;
 }
@@ -68,16 +62,12 @@ linked_list_get_last_element(linked_list* list)
     list_node* current_node;
 
     if (list->head == NULL)
-    {
         return NULL;
-    }
     
     current_node = list->head;
 
     while (current_node->next != NULL) 
-    {
         current_node = current_node->next;
-    }
     
     return current_node;
 }
@@ -100,11 +90,9 @@ create_node(int value)
 {
     list_node* node;
     
-    // try to create node, return error if unsuccessful
+    /* try to create node, return error if unsuccessful */
     if ((node = malloc(sizeof (node))) == NULL)
-    {
         return NULL;
-    }
     
     node->data = value;
     node->next = NULL;
