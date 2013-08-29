@@ -12,13 +12,17 @@
 /*
  * 
  */
-int main(int argc, char** argv) {
+int 
+main(int argc, 
+     char** argv) 
+{
     linked_list* list;
     list_node* iter;
+    int i = 0;
 
     list = new_linked_list();
     
-    int i = 0;
+
     for (i = 0; i < 30; i++)
     {
         linked_list_insert(list, i);

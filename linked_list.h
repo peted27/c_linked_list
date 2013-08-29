@@ -1,13 +1,25 @@
-#ifndef LINKED_LIST
-#define LINKED_LIST 1
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
 
 /*
  *
  */
 
 // types
-typedef struct linked_list_type linked_list;
-typedef struct list_node_type list_node;
+
+typedef struct list_node_t list_node;
+typedef struct linked_list_t linked_list;
+
+struct list_node_t 
+{
+    list_node* next;
+    int data;
+};
+
+struct linked_list_t
+{
+    list_node* head;
+};
 
 // list functions
 linked_list* new_linked_list(void);
@@ -23,5 +35,7 @@ list_node* linked_list_get_last_element(linked_list*);
 // node functions
 int linked_list_get_element_data(list_node*);
 list_node* linked_list_get_next_element(list_node*);
+static list_node* create_node(int);
+static void delete_node(list_node*);
 
 #endif
