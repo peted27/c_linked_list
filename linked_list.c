@@ -25,13 +25,13 @@ delete_linked_list(linked_list* list)
         delete_node(current_node);
         current_node = next_node;
     }
-    
+
     free(list);
 }
 
 int 
 linked_list_insert(linked_list* list, 
-                   int value) 
+                   void* value) 
 {
     list_node* node;
 
@@ -72,7 +72,7 @@ linked_list_get_last_element(linked_list* list)
     return current_node;
 }
 
-int
+void*
 linked_list_get_element_data(list_node* node)
 {
     return node->data;
@@ -86,7 +86,7 @@ linked_list_get_next_element(list_node* node)
 
 static
 list_node*
-create_node(int value)
+create_node(void* value)
 {
     list_node* node;
     
@@ -104,5 +104,6 @@ static
 void
 delete_node(list_node* node)
 {
+    free(node->data);
     free(node);
 }

@@ -19,19 +19,22 @@ main(int argc,
     linked_list* list;
     list_node* iter;
     int i = 0;
+    int* temp_data;
 
     list = new_linked_list();
     
 
-    for (i = 0; i < 30; i++)
+    for (i = 10; i < 20; i++)
     {
-        linked_list_insert(list, i);
+        temp_data = malloc(sizeof(int));
+        *temp_data = i;
+        linked_list_insert(list, (void*)temp_data);
     }
     
     iter = linked_list_get_first_element(list);
     while (iter != NULL)
     {
-        printf("value %d\n", linked_list_get_element_data(iter));
+        printf("value %d\n", *((int*)linked_list_get_element_data(iter)));
         iter = linked_list_get_next_element(iter);
     }
 
