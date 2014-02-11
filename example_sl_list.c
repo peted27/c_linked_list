@@ -1,33 +1,27 @@
-/* 
- * File:   main.c
- * Author: peterdavis
- *
- * Created on August 28, 2013, 10:45 PM
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "sl_list.h"
 
-/*
- * 
- */
-int 
-main(int argc, char** argv) 
+void free_int(void* int_p)
 {
-    sl_list* list;
-    sl_list_node* iter;
+	free((int *)int_p);
+}
+
+int main(int argc, char** argv) 
+{
+    struct sl_list* list;
+    struct sl_list_node* iter;
     int i = 0;
     int* temp_data;
 
-    list = new_sl_list();
+    list = sl_list_new(&free_int);
     
 
     for (i = 10; i < 20; i++)
     {
         temp_data = malloc(sizeof(int));
         *temp_data = i;
-        sl_list_insert(list, (void*)temp_data);
+        sl_list_insert(list, temp_data);
     }
     
     iter = sl_list_get_first_element(list);
@@ -37,7 +31,6 @@ main(int argc, char** argv)
         iter = sl_list_get_next_element(iter);
     }
 
-    delete_sl_list(list);
+    sl_list_delete(list);
     return (EXIT_SUCCESS);
 }
-

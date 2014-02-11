@@ -4,37 +4,68 @@
 
 /* types */
 
-typedef struct sl_list_node sl_list_node;
-typedef struct sl_list sl_list;
+struct sl_list_node;
 
 struct sl_list_node
 {
-    sl_list_node* next;
+    struct sl_list_node* next;
     void* data;
 };
 
 struct sl_list
 {
-    sl_list_node* head;
+	int length;
+    struct sl_list_node* head;
+	struct sl_list_node* tail;
+	void (*free_data)(void* data);
 };
 
-/* list functions */
-sl_list* new_sl_list(void);
-void delete_sl_list(sl_list*);
+/**
+*
+* Initiate the list.
+*
+* @param[in] 
+* @return 
+* @see SLISTdestroy()
+*
+**/
 
-/* insert functions */
-int sl_list_insert(sl_list*, void*);
 
-/* retrieval functions */
-sl_list_node* sl_list_get_first_element(sl_list*);
-sl_list_node* sl_list_get_last_element(sl_list*);
+/**
+*
+* Create the list.
+*
+* @return a pointer to a new empty list
+* @see sl_list_delete()
+*
+**/
+struct sl_list* sl_list_new(void (*free_data)(void* data));
 
-/* node functions */
-void* sl_list_get_element_data(sl_list_node*);
-sl_list_node* sl_list_get_next_element(sl_list_node*);
+void sl_list_delete(struct sl_list* list);
 
-/* private functions */
-static sl_list_node* create_node(void*);
-static void delete_node(sl_list_node*);
+int sl_list_insert(struct sl_list* list, void*);
+
+int sl_list_insert_at(struct sl_list* list, void* data, int);
+
+int sl_list_push(struct sl_list* list, void* data);
+
+int sl_list_push_tail(struct sl_list* list, void* data);
+
+struct sl_list_node* sl_list_get_first_element(struct sl_list* list);
+
+struct sl_list_node* sl_list_get_last_element(struct sl_list* list);
+
+struct sl_list_node* sl_list_pop(struct sl_list* list);
+
+struct sl_list_node* sl_list_pop_tail(struct sl_list* list);
+
+struct sl_list_node* sl_list_get_next_element(struct sl_list_node* node);
+
+void* sl_list_get_element_data(struct sl_list_node* node);
+
+static struct sl_list_node* sl_list_node_create(void* data);
+
+static void sl_list_node_delete(struct sl_list_node* node, 
+                                void (*free_data)(void* data));
 
 #endif
