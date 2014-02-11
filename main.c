@@ -7,38 +7,37 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "linked_list.h"
+#include "sl_list.h"
 
 /*
  * 
  */
 int 
-main(int argc, 
-     char** argv) 
+main(int argc, char** argv) 
 {
-    linked_list* list;
-    list_node* iter;
+    sl_list* list;
+    sl_list_node* iter;
     int i = 0;
     int* temp_data;
 
-    list = new_linked_list();
+    list = new_sl_list();
     
 
     for (i = 10; i < 20; i++)
     {
         temp_data = malloc(sizeof(int));
         *temp_data = i;
-        linked_list_insert(list, (void*)temp_data);
+        sl_list_insert(list, (void*)temp_data);
     }
     
-    iter = linked_list_get_first_element(list);
+    iter = sl_list_get_first_element(list);
     while (iter != NULL)
     {
-        printf("value %d\n", *((int*)linked_list_get_element_data(iter)));
-        iter = linked_list_get_next_element(iter);
+        printf("value %d\n", *((int*)sl_list_get_element_data(iter)));
+        iter = sl_list_get_next_element(iter);
     }
 
-    delete_linked_list(list);
+    delete_sl_list(list);
     return (EXIT_SUCCESS);
 }
 
