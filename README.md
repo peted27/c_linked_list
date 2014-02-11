@@ -1,4 +1,8 @@
-c_linked_list
-=============
+c_adt
+================================================================================
 
-Just my take on the linked list in c...
+Just my take on the adt library in c...
+
+- sl_list
+  singly linked list
+
