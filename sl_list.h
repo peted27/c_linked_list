@@ -26,6 +26,7 @@ struct sl_list
 **/
 struct sl_list *sl_list_new(void (*free_data)(void *data));
 
+
 /**
 * Delete the list and all nodes (inclduing their data containers).
 *
@@ -34,29 +35,43 @@ struct sl_list *sl_list_new(void (*free_data)(void *data));
 **/
 void sl_list_delete(struct sl_list *list);
 
+
+/**
+* Insert data in to a list
+*
+* @param[in] list - list to insert in to
+* @param[in] data - data to be inserted
+* @return 0 for success, else error code on failure
+* @see sl_list_insert_at() sl_list_push()
+*
+**/
 int sl_list_insert(struct sl_list *list, void *data);
+
 
 int sl_list_insert_at(struct sl_list *list, void *data, int index);
 
+
 int sl_list_push(struct sl_list *list, void *data);
+
 
 int sl_list_push_tail(struct sl_list *list, void *data);
 
+
 struct sl_list_node *sl_list_get_first_element(struct sl_list *list);
+
 
 struct sl_list_node *sl_list_get_last_element(struct sl_list *list);
 
+
 struct sl_list_node *sl_list_pop(struct sl_list *list);
+
 
 struct sl_list_node *sl_list_pop_tail(struct sl_list *list);
 
+
 struct sl_list_node *sl_list_get_next_element(struct sl_list_node *node);
 
+
 void *sl_list_get_element_data(struct sl_list_node *node);
-
-static struct sl_list_node *sl_list_node_create(void *data);
-
-static void sl_list_node_delete(struct sl_list_node *node,
-                                void (*free_data)(void *data));
 
 #endif

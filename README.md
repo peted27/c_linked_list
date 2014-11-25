@@ -1,8 +1,10 @@
-c_adt
-================================================================================
+libcadt
+=======
 
-Just my take on an adt library in c...
+Abstract Data Type library in C
+--------------------------------
 
-- sl_list
-  singly linked list
-
+Includes the following data types:
+- *sl_list* singly linked list
+- *dl_list* doubly linked list
+- *b_tree* binary tree

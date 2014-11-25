@@ -1,6 +1,13 @@
 #include "sl_list.h"
 #include <stdlib.h>
 
+static struct sl_list_node *sl_list_node_create(void *data);
+
+static void sl_list_node_delete(struct sl_list_node *node,
+                                void (*free_data)(void *data));
+
+
+
 
 struct sl_list *sl_list_new(void (*free_data)(void *data))
 {

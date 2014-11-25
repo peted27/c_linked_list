@@ -19,7 +19,7 @@ $(TARGET): $(OBJS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 demo: $(OBJS) $(TARGET)
-	$(CC) -c -o $@.o $@.c
+	$(CC) -c -o $@.o $@.c $(CFLAGS)
 	$(CC) -o $@ $@.o $(TARGET)
 
 debug: CFLAGS += $(DEBUG)
@@ -38,6 +38,8 @@ doc:
 
 .PHONY: clean
 clean:
-	-rm -f *.o
-	-rm -f $(TARGET)
-	-rm -f demo
+	-rm *.o
+	-rm $(TARGET)
+	-rm demo
+	-rm -r html
+	-rm -r latex
