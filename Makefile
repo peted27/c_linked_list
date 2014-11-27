@@ -28,9 +28,11 @@ debug: $(TARGET)
 
 .PHONY: indent
 indent:
-	-astyle --style=bsd --align-pointer=name --max-code-length=75 \
-	--max-instatement-indent=60 *.c *.h
-	-rm -f *.orig
+	-indent \
+	-nbad -nbap -bbo -bc -br -brs -c33 -cd33 -cdb -ce -ci4 -cli0 \
+	-cp33 -di16 -fc1 -fca -hnl -i8 -ip8 -l75 -lp -npcs -nprs -psl \
+	-saf -sai -saw -sc -nsob -nss -ts8 \
+	demo.c sl_list.c sl_list.h
 
 .PHONY: doc
 doc:
@@ -41,3 +43,4 @@ clean:
 	-rm *.o
 	-rm $(TARGET)
 	-rm demo
+	-rm *~
