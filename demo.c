@@ -55,10 +55,10 @@ main(int argc, char *argv[])
                 sl_list_insert(list, temp_data);
         }
 
-        iter = sl_list_get_first_element(list);
+        iter = sl_list_get_first(list);
         while (iter != NULL) {
-                printf("value %d\n", *((int *)sl_list_get_element_data(iter)));
-                iter = sl_list_get_next_element(iter);
+                printf("value %d\n", *((int *)sl_list_get_data(iter)));
+                iter = sl_list_get_next(iter);
         }
 
         sl_list_delete(list);

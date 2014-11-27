@@ -47,9 +47,10 @@ struct sl_list {
 /**
  * Create the list.
  *
- * @param[in] free_data - function pointer to free data container
- * @return a pointer to a new empty list
- * @see sl_list_delete()
+ * @param[in] free_data function pointer to free data container
+ * @retval NULL something went wrong
+ * @retval else pointer to new list
+* @see sl_list_delete()
  **/
 struct sl_list *sl_list_new(void (*free_data)(void *data));
 
@@ -57,7 +58,7 @@ struct sl_list *sl_list_new(void (*free_data)(void *data));
 /**
  * Delete the list and all nodes (inclduing their data containers).
  *
- * @param[in] list - list to free
+ * @param[in] list list to operate on
  * @see sl_list_new()
  **/
 void sl_list_delete(struct sl_list *list);
@@ -66,39 +67,118 @@ void sl_list_delete(struct sl_list *list);
 /**
  * Insert data in to a list
  *
- * @param[in] list - list to insert in to
- * @param[in] data - data to be inserted
- * @return 0 for success, else error code on failure
+ * @param[in] list list to operate on
+ * @param[in] data data to be inserted
+ * @retval 0 successfull
+ * @retval else something went wrong
  * @see sl_list_insert_at() sl_list_push()
- *
  **/
 int sl_list_insert(struct sl_list *list, void *data);
 
 
+/**
+ * Insert data into list at specified index
+ *
+ * @param[in] list  list to operate on
+ * @param[in] data  data to be inserted
+ * @param[in] index index to insert at, if out of bounds will
+ *              return error code
+ * @retval 0 successfull
+ * @retval else something went wrong
+ * @see sl_list_insert()
+ **/
 int sl_list_insert_at(struct sl_list *list, void *data, int index);
 
 
+/**
+ * Push data on to beginning of list
+ *
+ * @param[in] list list to operate on
+ * @param[in] data data to be pushed
+ * @retval 0 successfull
+ * @retval else something went wrong
+ * @see ..
+ **/
 int sl_list_push(struct sl_list *list, void *data);
 
 
+/**
+ * Push data on to end of list
+ *
+ * @param[in] list list to operate on
+ * @param[in] data data to be pushed
+ * @retval 0 successfull
+ * @retval else something went wrong
+ * @see ..
+ **/
 int sl_list_push_tail(struct sl_list *list, void *data);
 
 
-struct sl_list_node *sl_list_get_first_element(struct sl_list *list);
+/**
+ * Get first element of list
+ *
+ * @param[in] list list to operate on
+ * @retval NULL something went wrong
+ * @retval else pointer to first element
+ * @see sl_list_get_last()
+ **/
+struct sl_list_node *sl_list_get_first(struct sl_list *list);
 
 
-struct sl_list_node *sl_list_get_last_element(struct sl_list *list);
+/**
+ * Get last element of list
+ *
+ * @param[in] list - list to operate on
+ * @retval NULL something went wrong
+ * @retval else pointer to last element
+ * @see sl_list_get_first()
+ **/
+struct sl_list_node *sl_list_get_last(struct sl_list *list);
 
 
+/**
+ * Get first element of the list and remove it from the list
+ * note: node and contents should be manually free()d
+ *
+ * @param[in] list list to operate on
+ * @retval NULL something went wrong
+ * @retval else pointer to list node
+ * @see sl_list_pop_tail()
+ **/
 struct sl_list_node *sl_list_pop(struct sl_list *list);
 
 
+/**
+ * Get last element of list and remove it from list
+ * note: node and contents should be manually free()d
+ *
+ * @param[in] list list to operate on
+ * @retval NULL something went wrong
+ * @retval else pointer to list node
+ * @see sl_list_pop()
+ **/
 struct sl_list_node *sl_list_pop_tail(struct sl_list *list);
 
 
-struct sl_list_node *sl_list_get_next_element(struct sl_list_node *node);
+/**
+ * Get next element of a list
+ *
+ * @param[in] node the current node
+ * @retval NULL something went wrong
+ * @retval else pointer to next node in list
+ * @see ..
+ **/
+struct sl_list_node *sl_list_get_next(struct sl_list_node *node);
 
 
-void *sl_list_get_element_data(struct sl_list_node *node);
+/**
+ * Get a pointer to the data container of a node
+ *
+ * @param[in] node node to get contents of
+ * @retval NULL something went wrong
+ * @retval else pointer to data container
+ * @see ..
+ **/
+void *sl_list_get_data(struct sl_list_node *node);
 
 #endif

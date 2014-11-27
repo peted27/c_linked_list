@@ -93,7 +93,7 @@ sl_list_insert(struct sl_list *list, void *data)
         if (list->head == NULL)
                 list->head = node;
         else
-                sl_list_get_last_element(list)->next = node;
+                sl_list_get_last(list)->next = node;
 
         list->length += 1;
         list->tail = node;
@@ -130,7 +130,7 @@ sl_list_push_tail(struct sl_list *list, void *data)
 
 
 struct sl_list_node *
-sl_list_get_first_element(struct sl_list *list)
+sl_list_get_first(struct sl_list *list)
 {
         if (list == NULL)
                 return NULL;
@@ -140,7 +140,7 @@ sl_list_get_first_element(struct sl_list *list)
 
 
 struct sl_list_node *
-sl_list_get_last_element(struct sl_list *list)
+sl_list_get_last(struct sl_list *list)
 {
         if (list == NULL)
                 return NULL;
@@ -168,7 +168,7 @@ sl_list_pop_tail(struct sl_list *list)
 
 
 struct sl_list_node *
-sl_list_get_next_element(struct sl_list_node *node)
+sl_list_get_next(struct sl_list_node *node)
 {
         if (node == NULL)
                 return NULL;
@@ -178,7 +178,7 @@ sl_list_get_next_element(struct sl_list_node *node)
 
 
 void *
-sl_list_get_element_data(struct sl_list_node *node)
+sl_list_get_data(struct sl_list_node *node)
 {
         if (node == NULL)
                 return NULL;
