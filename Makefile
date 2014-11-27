@@ -41,5 +41,3 @@ clean:
 	-rm *.o
 	-rm $(TARGET)
 	-rm demo
-	-rm -r html
-	-rm -r latex
