@@ -66,8 +66,7 @@ sl_list_delete(struct sl_list *list)
         struct sl_list_node *current_node = list->head;
         struct sl_list_node *next_node;
 
-        while(current_node != NULL)
-        {
+        while(current_node != NULL) {
                 next_node = current_node->next;
                 sl_list_node_delete(current_node, list->free_data);
                 current_node = next_node;
@@ -210,8 +209,7 @@ static void
 sl_list_node_delete(struct sl_list_node *node,
                                 void (*free_data)(void *data))
 {
-        if (node != NULL)
-        {
+        if (node != NULL) {
                 free_data(node->data);
                 free(node);
         }
