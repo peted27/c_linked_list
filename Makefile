@@ -18,7 +18,7 @@ $(TARGET): $(OBJS)
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-demo: $(OBJS) $(TARGET)
+demo: $(OBJS) $(TARGET) demo.c
 	$(CC) -c -o $@.o $@.c $(CFLAGS)
 	$(CC) -o $@ $@.o $(TARGET)
 

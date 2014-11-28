@@ -39,6 +39,15 @@ free_int(void *int_p)
         free((int *)int_p);
 }
 
+
+#define foreach(sl_list_macro_iter, sl_list_macro_list) \
+        for ((sl_list_macro_iter) = sl_list_get_first((sl_list_macro_list)); \
+             (sl_list_macro_iter);                                      \
+             (sl_list_macro_iter) = sl_list_get_next((sl_list_macro_iter)))
+
+#define sl_list_get_int(sl_list_macro_iter) *((int *)sl_list_get_data((iter)))
+
+
 int
 main(int argc, char *argv[])
 {
@@ -61,6 +70,16 @@ main(int argc, char *argv[])
                 iter = sl_list_get_next(iter);
         }
 
+        for (iter = sl_list_get_first(list); iter;
+             iter = sl_list_get_next(iter))
+                printf("for value %d\n", *((int *)sl_list_get_data(iter)));
+
+        foreach(iter, list) {
+                printf("foreach value %d\n", sl_list_get_int(iter));
+                
+        }
+
+        
         sl_list_delete(list);
         return (EXIT_SUCCESS);
 }
