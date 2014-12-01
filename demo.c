@@ -32,54 +32,36 @@
 
 #include "sl_list.h"
 
-void
-free_int(void *int_p)
-{
-        
-        free((int *)int_p);
-}
+struct num {
+        int number;
+        SL_LIST_ENTRY(num);
+};
 
-
-#define foreach(sl_list_macro_iter, sl_list_macro_list) \
-        for ((sl_list_macro_iter) = sl_list_get_first((sl_list_macro_list)); \
-             (sl_list_macro_iter);                                      \
-             (sl_list_macro_iter) = sl_list_get_next((sl_list_macro_iter)))
-
-#define sl_list_get_int(sl_list_macro_iter) *((int *)sl_list_get_data((iter)))
+SL_LIST(num_list, num);
 
 
 int
 main(int argc, char *argv[])
 {
-        struct sl_list *list;
-        struct sl_list_node *iter;
         int i = 0;
-        int *temp_data;
 
-        list = sl_list_new(&free_int);
+        struct num *temp_num;
+        struct num_list numbers;
 
-        for (i = 10; i < 20; i++) {
-                temp_data = malloc(sizeof(int));
-                *temp_data = i;
-                sl_list_insert(list, temp_data);
-        }
-
-        iter = sl_list_get_first(list);
-        while (iter != NULL) {
-                printf("value %d\n", *((int *)sl_list_get_data(iter)));
-                iter = sl_list_get_next(iter);
-        }
-
-        for (iter = sl_list_get_first(list); iter;
-             iter = sl_list_get_next(iter))
-                printf("for value %d\n", *((int *)sl_list_get_data(iter)));
-
-        foreach(iter, list) {
-                printf("foreach value %d\n", sl_list_get_int(iter));
-                
-        }
-
+        SL_LIST_INIT(&numbers);
         
-        sl_list_delete(list);
+        for (i = 10; i < 20; i++) {
+                temp_num = malloc(sizeof(*temp_num));
+                temp_num->number = i;
+                
+                SL_LIST_INSERT_HEAD(&numbers, temp_num);
+        }
+
+        printf("macro list has %d elements according to count\n", SL_LIST_COUNT(&numbers));
+        
+        SL_LIST_FOREACH(&numbers, temp_num) {
+                printf("FOREACH value %d\n", temp_num->number);
+        }
+
         return (EXIT_SUCCESS);
 }

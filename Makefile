@@ -1,5 +1,5 @@
-TARGET = libcadt.a
-OBJS = sl_list.o
+TARGET = demo
+OBJS = demo.o
 DEPS = sl_list.h
 
 CC = gcc
@@ -7,20 +7,11 @@ DEBUG = -DDEBUG -g
 CFLAGS = -ansi -pedantic -Wall
 LFLAGS = -Wall
 
-AR = ar
-RANLIB = ranlib
-
-$(TARGET): $(OBJS)
-	rm -f $@
-	$(AR) rcu $@ $(OBJS)
-	$(RANLIB) $@
-
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-demo: $(OBJS) $(TARGET) demo.c
-	$(CC) -c -o $@.o $@.c $(CFLAGS)
-	$(CC) -o $@ $@.o $(TARGET)
+$(TARGET): $(OBJS)
+	$(CC) -o $@ $@.o
 
 debug: CFLAGS += $(DEBUG)
 debug: LFLAGS += $(DEBUG)
