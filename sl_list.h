@@ -30,59 +30,65 @@
 #ifndef SL_LIST_H
 #define SL_LIST_H
 
-/* LIST MACROS */
-#define SL_LIST_ENTRY(type)                     \
-        struct type *sl_list_next
+/*
+ * LIST CREATION
+ */
+#define SL_POINTERS(type)                       \
+        struct type *sl_next
 
-#define SL_LIST(name, type)                     \
+#define SL_STRUCT(name, type)                   \
         struct name {                           \
-                struct type *sl_list_head;      \
-                struct type *sl_list_tail;      \
-                int sl_list_count;              \
+                struct type *sl_head;           \
         }
 
-/* UTIL MACROS */
-#define SL_LIST_INIT(list)                      \
-        (list)->sl_list_head = NULL;            \
-        (list)->sl_list_tail = NULL;            \
-        (list)->sl_list_count = 0; 
+/*
+ * HELPERS
+ */
+#define SL_INIT(list)                      \
+        (list)->sl_head = NULL;            \
+        
+#define SL_HEAD(list)                           \
+        (list)->sl_head
 
-#define SL_LIST_HEAD(list)                      \
-        (list)->sl_list_head
+#define SL_NEXT(elem)                           \
+        (elem)->sl_next
 
-#define SL_LIST_TAIL(list)                      \
-        (list)->sl_list_tail
+#define SL_COUNT(list)                          \
+        (list)->sl_count
 
-#define SL_LIST_NEXT(elem)                      \
-        (elem)->sl_list_next
+#define SL_EMPTY(list)                          \
+        ((list)->sl_head == NULL)
 
-#define SL_LIST_COUNT(list)                     \
-        (list)->sl_list_count
+/*
+ * INSERTION
+ */
+#define SL_INSERT_HEAD(list, elem)                                \
+        do {                                                      \
+                SL_NEXT(elem) = SL_HEAD(list);                    \
+                SL_HEAD(list) = (elem);                           \
+        } while(0)
 
-#define SL_LIST_EMPTY(list)                     \
-        ((list)->sl_list_head == NULL)
+#define SL_INSERT_AFTER(existing, elem)             \
+        do {                                        \
+                SL_NEXT(elem) = SL_NEXT(existing);  \
+                SL_NEXT(existing) = elem;           \
+        } while (0)
 
-
-/* INSERT MACROS */
-#define SL_LIST_INSERT_HEAD(list, elem)             \
-        SL_LIST_NEXT(elem) = SL_LIST_HEAD(list);    \
-        SL_LIST_HEAD(list) = (elem);                \
-        SL_LIST_COUNT(list)++;                 
-
-#define SL_LIST_INSERT_TAIL(list, elem)                        \
-        if(SL_LIST_EMPTY(list))                                \
-                SL_LIST_HEAD(list) = (elem);                   \
-        else                                                   \
-                SL_LIST_NEXT(SL_LIST_TAIL(list)) = (elem);     \
-        SL_LIST_TAIL(list) = (elem);                           \
-        SL_LIST_COUNT(list)++;                                 \
-                           
-
-/* ITERATION MACROS */
-#define SL_LIST_FOREACH(list, var)              \
-        for ((var) = SL_LIST_HEAD(list);        \
+/*
+ * ITERATION
+ */
+#define SL_FOREACH(list, var)                   \
+        for ((var) = SL_HEAD(list);             \
              (var);                             \
-             (var) = SL_LIST_NEXT((var)))
+             (var) = SL_NEXT((var)))
 
+
+/*
+ * REMOVAL
+ */
+#define SL_REMOVE_HEAD(list)                                      \
+        do {                                                      \
+                SL_HEAD(list) = SL_NEXT(SL_HEAD(list));           \
+        } while (0)
 
 #endif

@@ -34,10 +34,10 @@
 
 struct num {
         int number;
-        SL_LIST_ENTRY(num);
+        SL_POINTERS(num);
 };
 
-SL_LIST(num_list, num);
+SL_STRUCT(num_list, num);
 
 
 int
@@ -48,18 +48,16 @@ main(int argc, char *argv[])
         struct num *temp_num;
         struct num_list numbers;
 
-        SL_LIST_INIT(&numbers);
+        SL_INIT(&numbers);
         
         for (i = 10; i < 20; i++) {
                 temp_num = malloc(sizeof(*temp_num));
                 temp_num->number = i;
                 
-                SL_LIST_INSERT_HEAD(&numbers, temp_num);
+                SL_INSERT_HEAD(&numbers, temp_num);
         }
 
-        printf("macro list has %d elements according to count\n", SL_LIST_COUNT(&numbers));
-        
-        SL_LIST_FOREACH(&numbers, temp_num) {
+        SL_FOREACH(&numbers, temp_num) {
                 printf("FOREACH value %d\n", temp_num->number);
         }
 
